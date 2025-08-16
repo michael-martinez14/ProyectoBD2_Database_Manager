@@ -16,14 +16,13 @@ public class BD_MANAGER {
     private String DATABASE = "maquillaje";
     private String USER = "michael";         
     private String PASSWORD = "1111";
-    private String URL= "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE
-            + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private String URL= "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
     
     public Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println(" Conexión exitosa a la base de datos: " + DATABASE);
+            System.out.println("Conexion exitosa a la base de datos: " + DATABASE);
         } catch (SQLException e) {
             System.out.println("Error al conectar: " + e.getMessage());
         }
