@@ -16,6 +16,8 @@ public class ProyectoBD2_Database_Manager {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Prueba");
+        BD_MANAGER conexion=new BD_MANAGER();
+        conexion.getConnection();
     }
     
 }
