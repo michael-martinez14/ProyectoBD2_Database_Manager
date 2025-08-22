@@ -156,16 +156,15 @@
                       <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="8">
                         <StringItem index="0" value="TABLAS"/>
                         <StringItem index="1" value="VISTAS"/>
                         <StringItem index="2" value="PROC. ALMACENADOS"/>
                         <StringItem index="3" value="FUNCIONES"/>
-                        <StringItem index="4" value="SECUENCIAS"/>
-                        <StringItem index="5" value="TRIGGERS"/>
-                        <StringItem index="6" value="&#xcd;NDICES"/>
-                        <StringItem index="7" value="TABLESPACES"/>
-                        <StringItem index="8" value="USUARIOS"/>
+                        <StringItem index="4" value="TRIGGERS"/>
+                        <StringItem index="5" value="&#xcd;NDICES"/>
+                        <StringItem index="6" value="TABLESPACES"/>
+                        <StringItem index="7" value="USUARIOS"/>
                       </StringArray>
                     </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

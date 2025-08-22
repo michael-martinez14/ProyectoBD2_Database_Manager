@@ -88,34 +88,34 @@ public class BD_MANAGER {
         }
     }
     public void mostrarFunciones(Connection con, JList<String> lista) {
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    String db = this.DATABASE;
-    String sql = "SHOW FUNCTION STATUS WHERE Db = '" + db + "'";
-    try (Statement st = con.createStatement();
-         ResultSet rs = st.executeQuery(sql)) {
-        while (rs.next()) {
-            modelo.addElement(rs.getString("Name"));
-        }lista.setModel(modelo);
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        String db = this.DATABASE;
+        String sql = "SHOW FUNCTION STATUS WHERE Db = '" + db + "'";
+        try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                modelo.addElement(rs.getString("Name"));
+            }
+            lista.setModel(modelo);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public void mostrarTriggers(Connection con, JList<String> lista) {
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    String db = this.DATABASE;
-    String sql = "SHOW TRIGGERS FROM `" + db + "`";
-    try (Statement st = con.createStatement();
-         ResultSet rs = st.executeQuery(sql)) {
-        while (rs.next()) {
-            // Columna "Trigger" trae el nombre
-            modelo.addElement(rs.getString("Trigger"));
-        }lista.setModel(modelo);
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        String db = this.DATABASE;
+        String sql = "SHOW TRIGGERS FROM `" + db + "`";
+        try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                // Columna "Trigger" trae el nombre
+                modelo.addElement(rs.getString("Trigger"));
+            }
+            lista.setModel(modelo);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     
     public void mostrarIndices(Connection con, JList<String> lista) {
     DefaultListModel<String> modelo = new DefaultListModel<>();
@@ -129,7 +129,6 @@ public class BD_MANAGER {
                  ResultSet rsIdx = stIdx.executeQuery("SHOW INDEX FROM `" + tabla + "`")) {
                 while (rsIdx.next()) {
                     String idx = rsIdx.getString("Key_name");
-                    // opcional: columna, no-único, etc.
                     boolean notUnique = rsIdx.getInt("Non_unique") == 1;
                     modelo.addElement(tabla + " -> " + idx + (notUnique ? " (NO ÚNICO)" : " (ÚNICO)"));
                 }

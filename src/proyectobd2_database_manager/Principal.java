@@ -94,7 +94,7 @@ public class Principal extends javax.swing.JFrame {
         jl_objetos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jl_objetos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jl_objetos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "TABLAS", "VISTAS", "PROC. ALMACENADOS", "FUNCIONES", "SECUENCIAS", "TRIGGERS", "ÍNDICES", "TABLESPACES", "USUARIOS" };
+            String[] strings = { "TABLAS", "VISTAS", "PROC. ALMACENADOS", "FUNCIONES", "TRIGGERS", "ÍNDICES", "TABLESPACES", "USUARIOS" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
