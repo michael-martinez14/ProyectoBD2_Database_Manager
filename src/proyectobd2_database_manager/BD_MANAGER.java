@@ -185,11 +185,7 @@ public class BD_MANAGER {
         if (!pks.isEmpty()) {
             sql.append("    PRIMARY KEY(")
                     .append(String.join(",", pks))
-                    .append("), ").append("\n");
-        }
-        // eliminar última coma
-        if (sql.toString().endsWith(", ")) {
-            sql.setLength(sql.length() - 2);
+                    .append(")").append("\n");
         }
 
         sql.append(");");

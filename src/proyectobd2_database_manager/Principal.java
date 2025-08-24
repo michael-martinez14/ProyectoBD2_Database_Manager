@@ -8,6 +8,7 @@ import java.sql.Connection;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author micha
@@ -452,6 +453,11 @@ public class Principal extends javax.swing.JFrame {
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("RETURN");
         jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(204, 204, 204)));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(new java.awt.Color(0, 0, 0));
         jButton11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -760,6 +766,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         //manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
         manager=new BD_MANAGER("localhost", "3306", "sismosdb", "michael", "1111");
+        conecction=manager.getConnection();
         if (manager.getConnection()==null) {
             JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
             
@@ -787,7 +794,6 @@ public class Principal extends javax.swing.JFrame {
             String nombreObjeto = jl_objetos.getSelectedValue();
             label_nombreObje.setText("VER " + nombreObjeto);
             
-            conecction=manager.getConnection();
             //llenar lista segun el objeto seleccionado
             switch (nombreObjeto) {
                 case "TABLAS":
@@ -874,6 +880,18 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         manager.crearVista(conecction, sqlVista);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        ta_sqlTabla.setText("");
+        ta_sqlVista.setText("");
+        ta_vista.setText("");
+        tf_nameTable.setText("");
+        tf_nameVista.setText("");
+        DefaultTableModel model = (DefaultTableModel) jtCrearTabla.getModel();
+        model.setRowCount(0);
+        crearPantalla.setVisible(false);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
