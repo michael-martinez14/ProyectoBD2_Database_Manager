@@ -52,7 +52,6 @@ public class BD_MANAGER {
         DefaultListModel<String> modelo = new DefaultListModel();
         try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
-            System.out.println("=== TABLAS EN LA BASE DE DATOS ===");
             while (rs.next()) {
                 System.out.println(rs.getString(1));
                 modelo.addElement(rs.getString(1));
@@ -68,7 +67,6 @@ public class BD_MANAGER {
         String sql = "SHOW FULL TABLES WHERE Table_type = 'VIEW'";
         try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                // Columna 1 = nombre de la vista, col 2 = tipo
                 System.out.println("");
                 modelo.addElement(rs.getString(1));
             }
@@ -84,7 +82,6 @@ public class BD_MANAGER {
         String sql = "SHOW PROCEDURE STATUS WHERE Db = '" + db + "'";
         try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                // Columna "Name" contiene el nombre del procedimiento
                 modelo.addElement(rs.getString("Name"));
             }
             lista.setModel(modelo);
@@ -112,7 +109,6 @@ public class BD_MANAGER {
         String sql = "SHOW TRIGGERS FROM `" + db + "`";
         try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                // Columna "Trigger" trae el nombre
                 modelo.addElement(rs.getString("Trigger"));
             }
             lista.setModel(modelo);
@@ -129,7 +125,6 @@ public class BD_MANAGER {
          ResultSet rsTablas = st.executeQuery("SHOW TABLES")) {
         while (rsTablas.next()) {
             String tabla = rsTablas.getString(1);
-            // 2) Por cada tabla, listar índices
             try (Statement stIdx = con.createStatement();
                  ResultSet rsIdx = stIdx.executeQuery("SHOW INDEX FROM `" + tabla + "`")) {
                 while (rsIdx.next()) {
@@ -304,4 +299,16 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
     return ddl;
 }
 
+    public void ejecutarSQL_DDLmodified(Connection conexion, String sql) {
+        try (Statement st = conexion.createStatement()) {
+            for (String sentencia : sql.split(";")) {
+                if (!sentencia.trim().isEmpty()) {
+                    st.executeUpdate(sentencia.trim());
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Cambios a DDL aplicados con éxito.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 }

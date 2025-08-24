@@ -50,6 +50,10 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jl_ver = new javax.swing.JList<>();
         jButton6 = new javax.swing.JButton();
+        jbVerDDL = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        taDDL = new javax.swing.JTextArea();
+        jbVerDDL1 = new javax.swing.JButton();
         crearPantalla = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -180,6 +184,11 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("MODIFICACIÓN");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -194,6 +203,11 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton4.setText("GENERAR DDL");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton5.setText("VER");
@@ -253,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_nombreObje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(label_nombreObje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +283,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jl_ver);
 
-        jButton6.setBackground(new java.awt.Color(0, 0, 0));
+        jButton6.setBackground(new java.awt.Color(102, 102, 102));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("RETURN");
@@ -279,27 +293,70 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jbVerDDL.setBackground(new java.awt.Color(0, 0, 0));
+        jbVerDDL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbVerDDL.setForeground(new java.awt.Color(255, 255, 255));
+        jbVerDDL.setText("VER DDL");
+        jbVerDDL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerDDLActionPerformed(evt);
+            }
+        });
+
+        taDDL.setColumns(20);
+        taDDL.setRows(5);
+        jScrollPane7.setViewportView(taDDL);
+
+        jbVerDDL1.setBackground(new java.awt.Color(0, 0, 0));
+        jbVerDDL1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbVerDDL1.setForeground(new java.awt.Color(255, 255, 255));
+        jbVerDDL1.setText("MODIFICAR DDL");
+        jbVerDDL1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerDDL1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout VerObjetosLayout = new javax.swing.GroupLayout(VerObjetos.getContentPane());
         VerObjetos.getContentPane().setLayout(VerObjetosLayout);
         VerObjetosLayout.setHorizontalGroup(
             VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(VerObjetosLayout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VerObjetosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VerObjetosLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(VerObjetosLayout.createSequentialGroup()
+                                .addComponent(jbVerDDL, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbVerDDL1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(VerObjetosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
+                .addGap(20, 20, 20))
         );
         VerObjetosLayout.setVerticalGroup(
             VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VerObjetosLayout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(VerObjetosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(VerObjetosLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbVerDDL, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbVerDDL1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(5, 5, 5)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -788,55 +845,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if (jl_objetos.isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(segundaPantalla, "Primero seleccione un objeto");
-        }else{
-            String nombreObjeto = jl_objetos.getSelectedValue();
-            label_nombreObje.setText("VER " + nombreObjeto);
-            
-            //llenar lista segun el objeto seleccionado
-            switch (nombreObjeto) {
-                case "TABLAS":
-                    manager.mostrarTablas(conecction, jl_ver);
-                    break;
-                case "VISTAS":
-                    manager.mostrarVistas(conecction, jl_ver);
-                    break;
-                case "PROC. ALMACENADOS":
-                    manager.mostrarProcedimientos(conecction, jl_ver);
-                    break;
-                case "FUNCIONES":
-                    manager.mostrarFunciones(conecction, jl_ver);
-                    break;
-                case "SECUENCIAS":
-                   // manager.mostrarSecuencias(conecction, jl_ver);
-                    break;
-                case "TRIGGERS":
-                    manager.mostrarTriggers(conecction, jl_ver);
-                    break;
-                case "INDICES", "ÍNDICES":
-                    manager.mostrarIndices(conecction, jl_ver);
-                    break;
-                case "TABLESPACES":
-                   // manager.mostrarTablespaces(conecction, jl_ver);
-                    break;
-                case "USUARIOS":
-                    manager.mostrarUsuarios(conecction, jl_ver);
-                    break;
-                default:
-                    throw new AssertionError("Objeto no soportado: " + nombreObjeto);
-            }
-            
-            VerObjetos.pack();
-            VerObjetos.setLocationRelativeTo(this);
-            VerObjetos.setModal(true);
-            VerObjetos.setVisible(true);
-        }
+        jbVerDDL.setVisible(false);
+        taDDL.setVisible(false);
+        llamarVentanaVer();
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         VerObjetos.setVisible(false);
+        taDDL.setText("");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -893,6 +911,71 @@ public class Principal extends javax.swing.JFrame {
         crearPantalla.setVisible(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jbVerDDLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerDDLActionPerformed
+        // TODO add your handling code here:
+        String ddl = "";
+        String nombreObjeto = jl_ver.getSelectedValue();
+        switch (tipoObjetoSelected.toUpperCase()) {
+            case "TABLAS":
+                ddl = manager.getDDLTabla(conecction, nombreObjeto);
+                break;
+            case "VISTAS":
+                ddl = manager.getDDLView(conecction, nombreObjeto);
+                break;
+            case "PROC. ALMACENADOS":
+                ddl = manager.getDDLProcedimiento(conecction, nombreObjeto);
+                break;
+            case "FUNCIONES":
+                ddl = manager.getDDLFuncion(conecction, nombreObjeto);
+                break;
+            case "TRIGGERS":
+                ddl = manager.getDDLTrigger(conecction, nombreObjeto);
+                break;
+
+            case "USUARIOS":
+                ddl = manager.getDDLUsuario(conecction, nombreObjeto);
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Tipo de objeto no soportado: ");
+                break;
+        }
+        System.out.println(ddl);
+        taDDL.setText(ddl);
+        //darle formato al ta
+        taDDL.setLineWrap(true);
+        taDDL.setWrapStyleWord(true);
+
+    }//GEN-LAST:event_jbVerDDLActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        jbVerDDL.setVisible(true);
+        taDDL.setVisible(true);
+        String ddl = "";
+        tipoObjetoSelected=jl_objetos.getSelectedValue();
+        llamarVentanaVer();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jbVerDDL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerDDL1ActionPerformed
+        // TODO add your handling code here:
+        if (!taDDL.getText().equals("")) {
+            String ddlNuevo = taDDL.getText();
+            manager.ejecutarSQL_DDLmodified(conecction, ddlNuevo);
+        }else{
+            JOptionPane.showMessageDialog(VerObjetos, "No hay ddl para generar la sentencia");
+        }
+        
+    }//GEN-LAST:event_jbVerDDL1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jbVerDDL.setVisible(true);
+        taDDL.setVisible(true);
+        String ddl = "";
+        tipoObjetoSelected=jl_objetos.getSelectedValue();
+        llamarVentanaVer();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -930,9 +1013,56 @@ public class Principal extends javax.swing.JFrame {
         });
         
     }
+    public void llamarVentanaVer(){
+        if (jl_objetos.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(segundaPantalla, "Primero seleccione un objeto");
+        }else{
+            tipoObjetoSelected= jl_objetos.getSelectedValue();
+            label_nombreObje.setText("VER " + tipoObjetoSelected);
+            
+            //llenar lista segun el objeto seleccionado
+            switch (tipoObjetoSelected.toUpperCase()) {
+                case "TABLAS":
+                    manager.mostrarTablas(conecction, jl_ver);
+                    break;
+                case "VISTAS":
+                    manager.mostrarVistas(conecction, jl_ver);
+                    break;
+                case "PROC. ALMACENADOS":
+                    manager.mostrarProcedimientos(conecction, jl_ver);
+                    break;
+                case "FUNCIONES":
+                    manager.mostrarFunciones(conecction, jl_ver);
+                    break;
+                case "SECUENCIAS":
+                   // manager.mostrarSecuencias(conecction, jl_ver);
+                    break;
+                case "TRIGGERS":
+                    manager.mostrarTriggers(conecction, jl_ver);
+                    break;
+                case "INDICES", "ÍNDICES":
+                    manager.mostrarIndices(conecction, jl_ver);
+                    break;
+                case "TABLESPACES":
+                   // manager.mostrarTablespaces(conecction, jl_ver);
+                    break;
+                case "USUARIOS":
+                    manager.mostrarUsuarios(conecction, jl_ver);
+                    break;
+                default:
+                    throw new AssertionError("Objeto no soportado: " + tipoObjetoSelected);
+            }
+            
+            VerObjetos.pack();
+            VerObjetos.setLocationRelativeTo(this);
+            VerObjetos.setModal(true);
+            VerObjetos.setVisible(true);
+        }
+    }
     BD_MANAGER manager;
     String sqlTabla="";
     String sqlVista="";
+    String tipoObjetoSelected="";
     Connection conecction;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog VerObjetos;
@@ -977,11 +1107,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JButton jbVerDDL;
+    private javax.swing.JButton jbVerDDL1;
     private javax.swing.JList<String> jl_objetos;
     private javax.swing.JList<String> jl_ver;
     private javax.swing.JTable jtCrearTabla;
     private javax.swing.JLabel label_nombreObje;
     private javax.swing.JDialog segundaPantalla;
+    private javax.swing.JTextArea taDDL;
     private javax.swing.JTextArea ta_sqlTabla;
     private javax.swing.JTextArea ta_sqlVista;
     private javax.swing.JTextArea ta_vista;
