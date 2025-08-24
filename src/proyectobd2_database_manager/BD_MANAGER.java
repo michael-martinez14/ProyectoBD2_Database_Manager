@@ -213,5 +213,95 @@ public class BD_MANAGER {
             JOptionPane.showMessageDialog(null, "Error al crear vista: " + e.getMessage());
         }
     }
+    
+    
+    //obtener de los ddl
+    public String getDDLTabla(Connection conexion, String nombreTabla) {
+    String ddl = "";
+    String sql = "SHOW CREATE TABLE " + nombreTabla;
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            ddl = rs.getString("Create Table");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
+
+public String getDDLView(Connection conexion, String nombreVista) {
+    String ddl = "";
+    String sql = "SHOW CREATE VIEW " + nombreVista;
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            ddl = rs.getString("Create View");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
+
+public String getDDLProcedimiento(Connection conexion, String nombreProc) {
+    String ddl = "";
+    String sql = "SHOW CREATE PROCEDURE " + nombreProc;
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            ddl = rs.getString("Create Procedure");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
+
+public String getDDLFuncion(Connection conexion, String nombreFuncion) {
+    String ddl = "";
+    String sql = "SHOW CREATE FUNCTION " + nombreFuncion;
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            ddl = rs.getString("Create Function");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
+
+public String getDDLTrigger(Connection conexion, String nombreTrigger) {
+    String ddl = "";
+    String sql = "SHOW CREATE TRIGGER " + nombreTrigger;
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            try {
+                ddl = rs.getString("SQL Original Statement");
+            } catch (SQLException ex) {
+                ddl = rs.getString("Create Trigger");
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
+
+public String getDDLUsuario(Connection conexion, String nombreUsuario) {
+    String ddl = "";
+    String sql = "SHOW CREATE USER '" + nombreUsuario + "'@'localhost'";
+    try (Statement st = conexion.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            ddl = rs.getString(1);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+    return ddl;
+}
 
 }
