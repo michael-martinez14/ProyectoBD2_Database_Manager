@@ -171,7 +171,7 @@ public class BD_MANAGER {
                 continue;
             }
 
-            sql.append("    "+nombreCol).append(" ").append(tipo);
+            sql.append("   "+nombreCol).append(" ").append(tipo);
             if (tam != null && !tam.isEmpty()) {
                 sql.append("(").append(tam).append(")");
             }
@@ -202,6 +202,19 @@ public class BD_MANAGER {
             JOptionPane.showMessageDialog(null, "Tabla creada con éxito.");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al crear tabla: " + e.getMessage());
+        }
+    }
+    
+    public String generarSQLVista(String nombreVista, String consulta) {
+        return "CREATE VIEW " + nombreVista + " AS"+"\n" + consulta + ";";
+    }
+
+    public void crearVista(Connection con, String sql) {
+        try (Statement st = con.createStatement()) {
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Vista creada con éxito.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al crear vista: " + e.getMessage());
         }
     }
 
