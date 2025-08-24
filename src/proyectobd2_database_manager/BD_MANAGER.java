@@ -3,14 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectobd2_database_manager;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author micha
@@ -150,4 +155,54 @@ public class BD_MANAGER {
             e.printStackTrace();
         }
     }
+    
+    public String generarSQLTabla(String nombreTabla, JTable tabla) {
+        StringBuilder sql = new StringBuilder("CREATE TABLE " + nombreTabla + " ("+"\n");
+        ArrayList<String> pks = new ArrayList<>();
+
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String nombreCol = (String) model.getValueAt(i, 0);
+            String tipo = (String) model.getValueAt(i, 1);
+            String tam = (String) model.getValueAt(i, 2);
+            Boolean pk = (Boolean) model.getValueAt(i, 3);
+
+            if (nombreCol == null || nombreCol.isEmpty()) {
+                continue;
+            }
+
+            sql.append("    "+nombreCol).append(" ").append(tipo);
+            if (tam != null && !tam.isEmpty()) {
+                sql.append("(").append(tam).append(")");
+            }
+            sql.append(", ").append("\n");
+
+            if (pk != null && pk) {
+                pks.add(nombreCol);
+            }
+        }
+
+        if (!pks.isEmpty()) {
+            sql.append("    PRIMARY KEY(")
+                    .append(String.join(",", pks))
+                    .append("), ").append("\n");
+        }
+        // eliminar última coma
+        if (sql.toString().endsWith(", ")) {
+            sql.setLength(sql.length() - 2);
+        }
+
+        sql.append(");");
+        return sql.toString();
+    }
+
+    public void crearTabla(Connection con, String sql) {
+        try (Statement st = con.createStatement()) {
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Tabla creada con éxito.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al crear tabla: " + e.getMessage());
+        }
+    }
+
 }
