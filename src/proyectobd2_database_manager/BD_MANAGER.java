@@ -4,6 +4,11 @@
  */
 package proyectobd2_database_manager;
 import java.awt.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -26,6 +31,46 @@ public class BD_MANAGER {
     private String DATABASE = "sismosdb";
     private String USER = "michael";         
     private String PASSWORD = "1111";
+
+    public String getHOST() {
+        return HOST;
+    }
+
+    public void setHOST(String HOST) {
+        this.HOST = HOST;
+    }
+
+    public String getPORT() {
+        return PORT;
+    }
+
+    public void setPORT(String PORT) {
+        this.PORT = PORT;
+    }
+
+    public String getDATABASE() {
+        return DATABASE;
+    }
+
+    public void setDATABASE(String DATABASE) {
+        this.DATABASE = DATABASE;
+    }
+
+    public String getUSER() {
+        return USER;
+    }
+
+    public void setUSER(String USER) {
+        this.USER = USER;
+    }
+
+    public String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public void setPASSWORD(String PASSWORD) {
+        this.PASSWORD = PASSWORD;
+    }
     private String URL= "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
 
@@ -311,4 +356,14 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    @Override
+    public String toString() {
+        return USER+" -->"+ DATABASE;
+    }
+    
+    public String toString2() {
+        
+        return HOST + ";" + PORT + ";" + DATABASE + ";" + USER + ";" + PASSWORD;
+    }
+    
 }

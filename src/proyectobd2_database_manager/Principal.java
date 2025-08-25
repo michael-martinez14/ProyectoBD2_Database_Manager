@@ -4,8 +4,18 @@
  */
 package proyectobd2_database_manager;
 import com.mysql.cj.jdbc.ConnectionImpl;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +31,13 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         jl_ver.setModel(new DefaultListModel<>());
+        cargarConexionesTXT();
+        DefaultComboBoxModel modelo=new DefaultComboBoxModel();
+        for (BD_MANAGER c : listaConexiones) {
+            modelo.addElement(c.toString());
+        }
+        cb_conexiones.setModel(modelo);
+        
     }
 
     /**
@@ -93,6 +110,8 @@ public class Principal extends javax.swing.JFrame {
         tfUser = new java.awt.TextField();
         jButton1 = new javax.swing.JButton();
         tfPassword = new javax.swing.JPasswordField();
+        jButton12 = new javax.swing.JButton();
+        cb_conexiones = new javax.swing.JComboBox<>();
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -703,39 +722,62 @@ public class Principal extends javax.swing.JFrame {
 
         tfPassword.setBackground(new java.awt.Color(204, 204, 204));
 
+        jButton12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton12.setText("GUARDAR");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        cb_conexiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_conexiones.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_conexionesItemStateChanged(evt);
+            }
+        });
+        cb_conexiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_conexionesMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(55, 55, 55)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfHost, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfPort, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfBD, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                    .addComponent(tfPassword)))))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfHost, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPort, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfBD, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(tfPassword))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cb_conexiones, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,9 +803,12 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_conexiones))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -780,7 +825,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -971,10 +1016,43 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jbVerDDL.setVisible(true);
         taDDL.setVisible(true);
-        String ddl = "";
         tipoObjetoSelected=jl_objetos.getSelectedValue();
         llamarVentanaVer();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
+        conecction=manager.getConnection();
+        if (manager.getConnection()==null) {
+            JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
+            
+        }else{
+            guardarConexionTXT(manager);
+            
+        }
+        tfHost.setText("");
+        tfPort.setText("");
+        tfBD.setText("");
+        tfUser.setText("");
+        tfUser.setText("");
+        tfPassword.setText("");
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void cb_conexionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_conexionesItemStateChanged
+        // TODO add your handling code here:
+        int indice=cb_conexiones.getSelectedIndex();
+        System.out.println(indice);
+        tfHost.setText(listaConexiones.get(indice).getHOST());
+        tfPort.setText(listaConexiones.get(indice).getPORT());
+        tfBD.setText(listaConexiones.get(indice).getDATABASE());
+        tfUser.setText(listaConexiones.get(indice).getUSER());
+        tfPassword.setText(listaConexiones.get(indice).getPASSWORD());
+    }//GEN-LAST:event_cb_conexionesItemStateChanged
+
+    private void cb_conexionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_conexionesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_conexionesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1013,6 +1091,58 @@ public class Principal extends javax.swing.JFrame {
         });
         
     }
+    public void guardarConexionTXT(BD_MANAGER manager) {
+        File archivo = new File("./conexiones.txt");
+
+        boolean existe = archivo.exists();
+
+        try (FileWriter fw = new FileWriter(archivo, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
+            if (!existe) {
+                out.println("HOST;PUERTO;BASE_DATOS;USUARIO;CONTRASEÑA");
+            }
+            out.println(manager.toString2());
+
+            JOptionPane.showMessageDialog(null, "Conexión guardada con éxito.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar conexión: " + e.getMessage());
+        }
+    }
+    
+    public void cargarConexionesTXT() {
+        File archivo = new File("./conexiones.txt");
+
+        if (!archivo.exists()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron conexiones guardadas.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            boolean primera = true;
+            listaConexiones.add(new BD_MANAGER("","","null","NULL",""));
+            while ((linea = br.readLine()) != null) {
+                if (primera) { // saltar cabecera
+                    primera = false;
+                    continue;
+                }
+                if (!linea.trim().isEmpty()) {
+                    String[] partes = linea.split(";");
+                    BD_MANAGER conexion = new BD_MANAGER(
+                            partes[0], 
+                            partes[1], 
+                            partes[2], 
+                            partes[3], 
+                            partes[4] 
+                    );
+                    listaConexiones.add(conexion);
+                }
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar conexiones: " + e.getMessage());
+        }
+    }
+    
     public void llamarVentanaVer(){
         if (jl_objetos.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(segundaPantalla, "Primero seleccione un objeto");
@@ -1059,17 +1189,22 @@ public class Principal extends javax.swing.JFrame {
             VerObjetos.setVisible(true);
         }
     }
+    //mejorar estetica de los ddl al momento de traerlos
+    
     BD_MANAGER manager;
     String sqlTabla="";
     String sqlVista="";
     String tipoObjetoSelected="";
     Connection conecction;
+    ArrayList<BD_MANAGER> listaConexiones=new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog VerObjetos;
+    private javax.swing.JComboBox<Object> cb_conexiones;
     private javax.swing.JDialog crearPantalla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

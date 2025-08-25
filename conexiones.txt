@@ -1,0 +1,2 @@
+HOST;PUERTO;BASE_DATOS;USUARIO;CONTRASEÑA
+localhost;3306;maquilaje;michael;1111
