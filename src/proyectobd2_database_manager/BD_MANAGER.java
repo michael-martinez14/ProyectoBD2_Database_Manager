@@ -27,11 +27,21 @@ import javax.swing.table.DefaultTableModel;
  * @author micha
  */
 public class BD_MANAGER {
-    private String HOST = "localhost";
-    private String PORT = "3306";
-    private String DATABASE = "sismosdb";
-    private String USER = "michael";         
-    private String PASSWORD = "1111";
+    private String HOST = "";
+    private String PORT = "";
+    private String DATABASE = "";
+    private String USER = "";         
+    private String PASSWORD = "";
+    private String URL= "";
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL() {
+        this.URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
+    }
+    
 
     public String getHOST() {
         return HOST;
@@ -72,7 +82,7 @@ public class BD_MANAGER {
     public void setPASSWORD(String PASSWORD) {
         this.PASSWORD = PASSWORD;
     }
-    private String URL= "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
+    
 
 
     public BD_MANAGER(String host, String port, String Db, String user, String pass){
@@ -81,13 +91,15 @@ public class BD_MANAGER {
         this.PORT=port;
         this.USER=user;
         this.PASSWORD=pass;
+        setURL();
     }
     public Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexion exitosa a la base de datos: " + DATABASE);
+            
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println("Error al conectar: " + e.getMessage());
         }
         return connection;
@@ -166,24 +178,29 @@ public class BD_MANAGER {
     
     public void mostrarIndices(Connection con, JList<String> lista) {
     DefaultListModel<String> modelo = new DefaultListModel<>();
-    // 1) Obtener tablas
     try (Statement st = con.createStatement();
          ResultSet rsTablas = st.executeQuery("SHOW TABLES")) {
+
         while (rsTablas.next()) {
             String tabla = rsTablas.getString(1);
-            try (Statement stIdx = con.createStatement();
-                 ResultSet rsIdx = stIdx.executeQuery("SHOW INDEX FROM `" + tabla + "`")) {
-                while (rsIdx.next()) {
-                    String idx = rsIdx.getString("Key_name");
-                    boolean notUnique = rsIdx.getInt("Non_unique") == 1;
-                    modelo.addElement(tabla + " -> " + idx + (notUnique ? " (NO ÚNICO)" : " (ÚNICO)"));
+            try (Statement stIndex = con.createStatement();
+                 ResultSet rsIndex = stIndex.executeQuery("SHOW INDEX FROM `" + tabla + "`")) {
+
+                while (rsIndex.next()) {
+                    String index = rsIndex.getString("Key_name");
+                    String salida = tabla + " -> " + index;
+                    modelo.addElement(salida);
                 }
             }
-        }lista.setModel(modelo);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
+        lista.setModel(modelo);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
     public void mostrarUsuarios(Connection con, JList<String> lista) {
         DefaultListModel<String> modelo = new DefaultListModel<>();
         String sql = "SELECT CONCAT(User, '@', Host) AS usr FROM mysql.user ORDER BY User, Host";
@@ -224,9 +241,7 @@ public class BD_MANAGER {
         }
 
         if (!pks.isEmpty()) {
-            sql.append("    PRIMARY KEY(")
-                    .append(String.join(",", pks))
-                    .append(")").append("\n");
+            sql.append("   PRIMARY KEY(").append(String.join(",", pks)).append(")").append("\n");
         }
 
         sql.append(");");
@@ -394,5 +409,39 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
 
     return tabla;
 }
+    
+    public JTable ejecutarSQL_SELECT_Tabla(Connection con, String sql, JTable tabla, String nombreTabla) {
+    try (Statement stmt = con.createStatement()) {
+
+        String sqlColumnas = "SHOW COLUMNS FROM " + nombreTabla;
+        ResultSet rsColumnas = stmt.executeQuery(sqlColumnas);
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        while (rsColumnas.next()) {
+            modelo.addColumn(rsColumnas.getString("Field")); 
+        }
+        rsColumnas.close();
+
+        ResultSet rs = stmt.executeQuery(sql);
+        int columnas = modelo.getColumnCount();
+
+        while (rs.next()) {
+            Object[] fila = new Object[columnas];
+            for (int i = 1; i <= columnas; i++) {
+                fila[i - 1] = rs.getObject(i);
+            }
+            modelo.addRow(fila);
+        }
+        rs.close();
+        tabla.setModel(modelo);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null,
+                "Error al ejecutar consulta: " + e.getMessage());
+    }
+    return tabla;
+}
+
     
 }

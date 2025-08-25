@@ -1127,8 +1127,9 @@ public class Principal extends javax.swing.JFrame {
         manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
         //manager=new BD_MANAGER("localhost", "3306", "sismosdb", "michael", "1111");
         conecction=manager.getConnection();
-        if (manager.getConnection()==null) {
-            JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
+        
+        if (conecction==null) {
+            //JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
             
         }else{
             JOptionPane.showMessageDialog(this, "Conexion exitosa");
@@ -1260,6 +1261,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        jbVER.setVisible(false);
         jbVerDDL.setVisible(true);
         jbVerDDL1.setVisible(true);
         taDDL.setVisible(true);
@@ -1294,8 +1296,8 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
         conecction=manager.getConnection();
-        if (manager.getConnection()==null) {
-            JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
+        if (conecction==null) {
+            //JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
             
         }else{
             guardarConexionTXT(manager);
@@ -1356,7 +1358,7 @@ public class Principal extends javax.swing.JFrame {
         if (jl_ver.getSelectedIndex()!=-1) {
             String nombre=jl_ver.getSelectedValue();
             String sql="SELECT * FROM sismosdb."+nombre+";";
-            manager.ejecutarSQL_SELECT(conecction, sql, jTable1);
+            manager.ejecutarSQL_SELECT_Tabla(conecction, sql, jTable1,nombre);
             if(jTable1.getRowCount()<1){
                 
             } else {
