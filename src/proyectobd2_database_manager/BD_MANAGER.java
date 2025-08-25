@@ -93,7 +93,7 @@ public class BD_MANAGER {
         this.PASSWORD=pass;
         setURL();
     }
-    public Connection getConnection() {
+    public Connection conexionBD() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);

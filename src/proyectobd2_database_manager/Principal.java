@@ -1126,7 +1126,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
         //manager=new BD_MANAGER("localhost", "3306", "sismosdb", "michael", "1111");
-        conecction=manager.getConnection();
+        conecction=manager.conexionBD();
         
         if (conecction==null) {
             //JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
@@ -1295,7 +1295,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
-        conecction=manager.getConnection();
+        conecction=manager.conexionBD();
         if (conecction==null) {
             //JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
             
@@ -1442,18 +1442,16 @@ public class Principal extends javax.swing.JFrame {
     
     public void cargarConexionesTXT() {
         File archivo = new File("./conexiones.txt");
-
         if (!archivo.exists()) {
             JOptionPane.showMessageDialog(null, "No se encontraron conexiones guardadas.");
             return;
         }
-
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             boolean primera = true;
             listaConexiones.add(new BD_MANAGER("","","null","NULL",""));
             while ((linea = br.readLine()) != null) {
-                if (primera) { // saltar cabecera
+                if (primera) { 
                     primera = false;
                     continue;
                 }
@@ -1469,7 +1467,6 @@ public class Principal extends javax.swing.JFrame {
                     listaConexiones.add(conexion);
                 }
             }
-
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar conexiones: " + e.getMessage());
         }
@@ -1496,9 +1493,6 @@ public class Principal extends javax.swing.JFrame {
                 case "FUNCIONES":
                     manager.mostrarFunciones(conecction, jl_ver);
                     break;
-                case "SECUENCIAS":
-                   // manager.mostrarSecuencias(conecction, jl_ver);
-                    break;
                 case "TRIGGERS":
                     manager.mostrarTriggers(conecction, jl_ver);
                     break;
@@ -1518,7 +1512,6 @@ public class Principal extends javax.swing.JFrame {
             VerObjetos.setVisible(true);
         }
     }
-    //mejorar estetica de los ddl al momento de traerlos
     
     BD_MANAGER manager;
     String sqlTabla="";
