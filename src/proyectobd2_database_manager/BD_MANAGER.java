@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectobd2_database_manager;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.List;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -365,5 +366,33 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
         
         return HOST + ";" + PORT + ";" + DATABASE + ";" + USER + ";" + PASSWORD;
     }
+    
+    
+    public JTable ejecutarSQL_SELECT(Connection con, String sql, JTable tabla) {
+    try (Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
+        int columnas = metaData.getColumnCount();
+        DefaultTableModel modelo = new DefaultTableModel();
+        for (int i = 1; i <= columnas; i++) {
+            modelo.addColumn(metaData.getColumnName(i));
+        }
+        while (rs.next()) {
+            Object[] fila = new Object[columnas];
+            for (int i = 1; i <= columnas; i++) {
+                fila[i - 1] = rs.getObject(i);
+            }
+            modelo.addRow(fila);
+        }
+        tabla.setModel(modelo);
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null,
+                "Error al ejecutar consulta: " + e.getMessage());
+    }
+
+    return tabla;
+}
     
 }
