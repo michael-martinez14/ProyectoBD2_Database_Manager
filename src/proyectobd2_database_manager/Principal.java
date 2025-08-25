@@ -72,6 +72,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         taDDL = new javax.swing.JTextArea();
         jbVerDDL1 = new javax.swing.JButton();
+        jbVER = new javax.swing.JButton();
         crearPantalla = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -108,6 +109,12 @@ public class Principal extends javax.swing.JFrame {
         jbBorrar = new javax.swing.JButton();
         jbEjecutar = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        verTablasVistas = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton15 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -155,7 +162,7 @@ public class Principal extends javax.swing.JFrame {
         jl_objetos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jl_objetos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jl_objetos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "TABLAS", "VISTAS", "PROC. ALMACENADOS", "FUNCIONES", "TRIGGERS", "ÍNDICES", "TABLESPACES", "USUARIOS" };
+            String[] strings = { "TABLAS", "VISTAS", "PROC. ALMACENADOS", "FUNCIONES", "TRIGGERS", "ÍNDICES", "USUARIOS" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -271,21 +278,18 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(segundaPantallaLayout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(segundaPantallaLayout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51))
-                            .addGroup(segundaPantallaLayout.createSequentialGroup()
-                                .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(51, 51, 51)
                         .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, segundaPantallaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))))
+                        .addGap(127, 127, 127))))
         );
         segundaPantallaLayout.setVerticalGroup(
             segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +308,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                        .addGap(30, 30, 30)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
@@ -333,6 +337,11 @@ public class Principal extends javax.swing.JFrame {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jl_ver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_verMouseClicked(evt);
+            }
         });
         jScrollPane2.setViewportView(jl_ver);
 
@@ -370,6 +379,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jbVER.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbVER.setText("VER");
+        jbVER.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVERActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout VerObjetosLayout = new javax.swing.GroupLayout(VerObjetos.getContentPane());
         VerObjetos.getContentPane().setLayout(VerObjetosLayout);
         VerObjetosLayout.setHorizontalGroup(
@@ -380,6 +397,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VerObjetosLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbVER)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -406,8 +425,13 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbVerDDL, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbVerDDL1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(VerObjetosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(VerObjetosLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(VerObjetosLayout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jbVER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(5, 5, 5)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -799,6 +823,73 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
+        jPanel12.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel12.setForeground(new java.awt.Color(204, 204, 204));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 0, 102));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane10.setViewportView(jTable1);
+
+        jButton15.setBackground(new java.awt.Color(204, 204, 204));
+        jButton15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton15.setText("RETURN");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout verTablasVistasLayout = new javax.swing.GroupLayout(verTablasVistas.getContentPane());
+        verTablasVistas.getContentPane().setLayout(verTablasVistasLayout);
+        verTablasVistasLayout.setHorizontalGroup(
+            verTablasVistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(verTablasVistasLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        verTablasVistasLayout.setVerticalGroup(
+            verTablasVistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verTablasVistasLayout.createSequentialGroup()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(verTablasVistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(verTablasVistasLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 51, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verTablasVistasLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
@@ -1033,8 +1124,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
-        manager=new BD_MANAGER("localhost", "3306", "sismosdb", "michael", "1111");
+        manager=new BD_MANAGER(tfHost.getText(), tfPort.getText(), tfBD.getText(), tfUser.getText(), tfPassword.getText());
+        //manager=new BD_MANAGER("localhost", "3306", "sismosdb", "michael", "1111");
         conecction=manager.getConnection();
         if (manager.getConnection()==null) {
             JOptionPane.showMessageDialog(this, "Conexion fallida. Verifique los datos ingresados");
@@ -1057,7 +1148,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        tipoObjetoSelected=jl_objetos.getSelectedValue();
+        if (tipoObjetoSelected.equals("TABLAS") || tipoObjetoSelected.equals("VISTAS")) {
+            
+            jbVER.setVisible(true);
+        }else{
+            jbVER.setVisible(false);
+        }
         jbVerDDL.setVisible(false);
+        jbVerDDL1.setVisible(false);
         taDDL.setVisible(false);
         llamarVentanaVer();
         
@@ -1162,6 +1261,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         jbVerDDL.setVisible(true);
+        jbVerDDL1.setVisible(true);
         taDDL.setVisible(true);
         String ddl = "";
         tipoObjetoSelected=jl_objetos.getSelectedValue();
@@ -1181,6 +1281,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jtConsultas.getModel();
+        model.setColumnIdentifiers(new Object[]{});
+        model.setRowCount(0);
         sentencias.pack();
         sentencias.setLocationRelativeTo(this);
         sentencias.setModal(true);
@@ -1196,7 +1299,6 @@ public class Principal extends javax.swing.JFrame {
             
         }else{
             guardarConexionTXT(manager);
-            
         }
         tfHost.setText("");
         tfPort.setText("");
@@ -1225,6 +1327,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         taConsultaSentencia.setText("");
         DefaultTableModel model = (DefaultTableModel) jtConsultas.getModel();
+        model.setColumnIdentifiers(new Object[]{});
         model.setRowCount(0);
     }//GEN-LAST:event_jbBorrarActionPerformed
 
@@ -1245,6 +1348,40 @@ public class Principal extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jbVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVERActionPerformed
+        // TODO add your handling code here:
+        String label="VER "+tipoObjetoSelected+" "+jl_ver.getSelectedValue();
+        jLabel15.setText(label);
+        if (jl_ver.getSelectedIndex()!=-1) {
+            String nombre=jl_ver.getSelectedValue();
+            String sql="SELECT * FROM sismosdb."+nombre+";";
+            manager.ejecutarSQL_SELECT(conecction, sql, jTable1);
+            if(jTable1.getRowCount()<1){
+                
+            } else {
+                verTablasVistas.pack();
+                verTablasVistas.setLocationRelativeTo(this);
+                verTablasVistas.setModal(true);
+                verTablasVistas.setVisible(true);
+            }
+        }else{
+            JOptionPane.showMessageDialog(VerObjetos, "Primero seleccione una tabla o vista");
+        }
+        
+    }//GEN-LAST:event_jbVERActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        verTablasVistas.setVisible(false);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jl_verMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_verMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jl_verMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1366,9 +1503,6 @@ public class Principal extends javax.swing.JFrame {
                 case "INDICES", "ÍNDICES":
                     manager.mostrarIndices(conecction, jl_ver);
                     break;
-                case "TABLESPACES":
-                   // manager.mostrarTablespaces(conecction, jl_ver);
-                    break;
                 case "USUARIOS":
                     manager.mostrarUsuarios(conecction, jl_ver);
                     break;
@@ -1400,6 +1534,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1414,6 +1549,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1425,6 +1561,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
@@ -1436,6 +1573,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1444,8 +1582,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbEjecutar;
+    private javax.swing.JButton jbVER;
     private javax.swing.JButton jbVerDDL;
     private javax.swing.JButton jbVerDDL1;
     private javax.swing.JList<String> jl_objetos;
@@ -1467,6 +1607,7 @@ public class Principal extends javax.swing.JFrame {
     private java.awt.TextField tfUser;
     private javax.swing.JTextField tf_nameTable;
     private javax.swing.JTextField tf_nameVista;
+    private javax.swing.JDialog verTablasVistas;
     // End of variables declaration//GEN-END:variables
 }
 
