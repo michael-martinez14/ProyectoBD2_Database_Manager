@@ -4,6 +4,11 @@
  */
 package proyectobd2_database_manager;
 import com.mysql.cj.jdbc.ConnectionImpl;
+import java.awt.List;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,12 +18,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.view.mxGraph;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JDialog;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author micha
@@ -62,6 +78,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
         VerObjetos = new javax.swing.JDialog();
         jPanel7 = new javax.swing.JPanel();
         label_nombreObje = new javax.swing.JLabel();
@@ -232,7 +249,7 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("CREAR");
+        jButton3.setText("SINC. POSTGRE");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -257,13 +274,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButton14.setBackground(new java.awt.Color(51, 51, 51));
         jButton14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(255, 255, 255));
-        jButton14.setText("MODIFICACIÓN");
+        jButton14.setText("DIAGRAMA REL.");
+        jButton14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton16.setBackground(new java.awt.Color(51, 51, 51));
+        jButton16.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jButton16.setForeground(new java.awt.Color(255, 255, 255));
+        jButton16.setText("CREAR");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
             }
         });
 
@@ -275,21 +301,21 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, segundaPantallaLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(segundaPantallaLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(51, 51, 51)
-                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, segundaPantallaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
+                .addGap(69, 69, 69)
+                .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+            .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, segundaPantallaLayout.createSequentialGroup()
+                    .addContainerGap(657, Short.MAX_VALUE)
+                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)))
         );
         segundaPantallaLayout.setVerticalGroup(
             segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,17 +326,23 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(segundaPantallaLayout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(168, 168, 168)
+                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(segundaPantallaLayout.createSequentialGroup()
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)
+                                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(78, Short.MAX_VALUE))
+            .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(segundaPantallaLayout.createSequentialGroup()
+                    .addGap(263, 263, 263)
+                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(282, Short.MAX_VALUE)))
         );
 
         jPanel7.setBackground(new java.awt.Color(204, 204, 204));
@@ -1251,7 +1283,7 @@ public class Principal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Tipo de objeto no soportado: ");
                 break;
         }
-        System.out.println(ddl);
+        //System.out.println(ddl);
         taDDL.setText(ddl);
         //darle formato al ta
         taDDL.setLineWrap(true);
@@ -1347,17 +1379,13 @@ public class Principal extends javax.swing.JFrame {
         sentencias.setVisible(false);
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
-
     private void jbVERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVERActionPerformed
         // TODO add your handling code here:
         String label="VER "+tipoObjetoSelected+" "+jl_ver.getSelectedValue();
         jLabel15.setText(label);
         if (jl_ver.getSelectedIndex()!=-1) {
             String nombre=jl_ver.getSelectedValue();
-            String sql="SELECT * FROM sismosdb."+nombre+";";
+            String sql="SELECT * FROM "+manager.getDATABASE()+"."+nombre+";";
             manager.ejecutarSQL_SELECT_Tabla(conecction, sql, jTable1,nombre);
             if(jTable1.getRowCount()<1){
                 
@@ -1384,6 +1412,33 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jl_verMouseClicked
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        try {
+        Map<String, Map<String, Object>> relaciones = new HashMap<>();
+
+        Statement st = conecction.createStatement();
+        ResultSet rs = st.executeQuery("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'");
+
+        while (rs.next()) {
+            String tabla = rs.getString(1);
+            String ddl = manager.getDDLTabla(conecction, tabla);
+            Map<String, Object> info = manager.analizarDDL(ddl);
+            relaciones.put(tabla, info);
+        }
+
+        mostrarDiagrama(relaciones);
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Error al generar diagrama: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1512,6 +1567,80 @@ public class Principal extends javax.swing.JFrame {
             VerObjetos.setVisible(true);
         }
     }
+    private void mostrarDiagrama(Map<String, Map<String, Object>> relaciones) {
+    JDialog jdDiagramaRelacional = new JDialog(segundaPantalla, "Diagrama Relacional", true);
+    jdDiagramaRelacional.setResizable(true); 
+    jdDiagramaRelacional.setSize(800, 600);
+    jdDiagramaRelacional.setLocationRelativeTo(segundaPantalla);
+
+    mxGraph graph = new mxGraph();
+    Object parent = graph.getDefaultParent();
+    Map<String, Object> style = graph.getStylesheet().getDefaultEdgeStyle();
+    style.put(mxConstants.STYLE_NOLABEL, "0"); 
+    style.put(mxConstants.STYLE_LABEL_POSITION, mxConstants.ALIGN_CENTER);
+    style.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_BOTTOM);
+
+    graph.getModel().beginUpdate();
+    try {
+        Map<String, Object> nodos = new HashMap<>();
+
+        int x = 50, y = 50;
+        for (String tabla : relaciones.keySet()) {
+            Map<String, Object> info = relaciones.get(tabla);
+            //clavs primarias
+            String pk = info.containsKey("PK") ? info.get("PK").toString() : "—";
+
+            StringBuilder label = new StringBuilder(tabla + "\nPK: " + pk);
+            //claves foraneas
+            ArrayList<String[]> fks = (ArrayList<String[]>) info.get("FKs");
+            if (fks != null) {
+                for (String[] fk : fks) {
+                    label.append("\nFK: ").append(fk[0]);
+                }
+            }
+
+            Object nodo = graph.insertVertex(parent, null, label.toString(), x, y, 160, 90);
+            nodos.put(tabla, nodo);
+            
+            //valores prueba para tablitas
+            x += 220;
+            if (x > 700) { 
+                x = 50;
+                y += 150;
+            }
+        }
+
+        // lineas entre tables
+        for (String tabla : relaciones.keySet()) {
+            Map<String, Object> info = relaciones.get(tabla);
+            ArrayList<String[]> fks = (ArrayList<String[]>) info.get("FKs");
+            if (fks != null) {
+                for (String[] fk : fks) {
+                    Object origen = nodos.get(tabla);
+                    Object destino = nodos.get(fk[1]);
+                    if (origen != null && destino != null) {
+                        graph.insertEdge(parent, null, "", origen, destino);
+                    }
+                }
+            }
+        }
+
+    } finally {
+        graph.getModel().endUpdate();
+    }
+
+    
+    mxGraphComponent graphComponent = new mxGraphComponent(graph);
+    graphComponent.setConnectable(false);
+    graphComponent.getGraphControl().setBackground(Color.WHITE);
+
+    JScrollPane scrollPane = new JScrollPane(graphComponent);
+    jdDiagramaRelacional.add(scrollPane, BorderLayout.CENTER);
+    jdDiagramaRelacional.setVisible(true);
+}
+    
+
+    
     
     BD_MANAGER manager;
     String sqlTabla="";
@@ -1530,6 +1659,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

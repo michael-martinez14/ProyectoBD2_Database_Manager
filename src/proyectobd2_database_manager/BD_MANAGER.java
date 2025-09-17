@@ -16,6 +16,10 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -33,6 +37,7 @@ public class BD_MANAGER {
     private String USER = "";         
     private String PASSWORD = "";
     private String URL= "";
+    
 
     public String getURL() {
         return URL;
@@ -278,7 +283,7 @@ public class BD_MANAGER {
     try (Statement st = conexion.createStatement();
          ResultSet rs = st.executeQuery(sql)) {
         if (rs.next()) {
-            ddl = rs.getString("Create Table");
+            ddl = rs.getString(2);
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
@@ -443,5 +448,29 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
     return tabla;
 }
 
+    //segunda parte del proyecto
     
+    public Map<String, Object> analizarDDL(String ddl) {
+    Map<String, Object> info = new HashMap<>();
+
+    Pattern pkPattern = Pattern.compile("PRIMARY KEY \\((.*?)\\)");
+    Matcher pkMatcher = pkPattern.matcher(ddl);
+    if (pkMatcher.find()) {
+        info.put("PK", pkMatcher.group(1).replace("`", ""));
+    }
+
+    ArrayList<String[]> fks = new ArrayList<>();
+    Pattern fkPattern = Pattern.compile("FOREIGN KEY \\((.*?)\\) REFERENCES `(.*?)` \\((.*?)\\)");
+    Matcher fkMatcher = fkPattern.matcher(ddl);
+    while (fkMatcher.find()) {
+        fks.add(new String[]{
+            fkMatcher.group(1).replace("`", ""), 
+            fkMatcher.group(2),                  
+            fkMatcher.group(3).replace("`", "")  
+        });
+    }
+    info.put("FKs", fks);
+
+    return info;
+}
 }
