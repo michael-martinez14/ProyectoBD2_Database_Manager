@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyectobd2_database_manager;
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.List;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,6 +25,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.ResultSetMetaData;
+
 /**
  *
  * @author micha
@@ -388,32 +390,40 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
     }
     
     
-    public JTable ejecutarSQL_SELECT(Connection con, String sql, JTable tabla) {
-    try (Statement stmt = con.createStatement();
-         ResultSet rs = stmt.executeQuery(sql)) {
-        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
-        int columnas = metaData.getColumnCount();
-        DefaultTableModel modelo = new DefaultTableModel();
-        for (int i = 1; i <= columnas; i++) {
-            modelo.addColumn(metaData.getColumnName(i));
-        }
-        while (rs.next()) {
-            Object[] fila = new Object[columnas];
-            for (int i = 1; i <= columnas; i++) {
-                fila[i - 1] = rs.getObject(i);
+    public JTable ejecutarSQL(Connection con, String sql, JTable tabla) {
+        try (Statement stmt = con.createStatement()) {
+            String sqlTrim = sql.trim().toLowerCase();
+            if (sqlTrim.startsWith("select")) {
+                try (ResultSet rs = stmt.executeQuery(sql)) {
+                    ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
+                    int columnas = metaData.getColumnCount();
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    for (int i = 1; i <= columnas; i++) {
+                        modelo.addColumn(metaData.getColumnName(i));
+                    }
+                    while (rs.next()) {
+                        Object[] fila = new Object[columnas];
+                        for (int i = 1; i <= columnas; i++) {
+                            fila[i - 1] = rs.getObject(i);
+                        }
+                        modelo.addRow(fila);
+                    }
+
+                    tabla.setModel(modelo);
+                }
+            } else {
+                int result = stmt.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Sentencia ejecutada correctamente.");
             }
-            modelo.addRow(fila);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error al ejecutar SQL: " + e.getMessage());
         }
-        tabla.setModel(modelo);
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null,
-                "Error al ejecutar consulta: " + e.getMessage());
+
+        return tabla;
     }
 
-    return tabla;
-}
     
     public JTable ejecutarSQL_SELECT_Tabla(Connection con, String sql, JTable tabla, String nombreTabla) {
     try (Statement stmt = con.createStatement()) {
@@ -450,27 +460,149 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
 
     //segunda parte del proyecto
     
+    //metodo para identifcar pk y fk
     public Map<String, Object> analizarDDL(String ddl) {
-    Map<String, Object> info = new HashMap<>();
+        Map<String, Object> info = new HashMap<>();
 
-    Pattern pkPattern = Pattern.compile("PRIMARY KEY \\((.*?)\\)");
-    Matcher pkMatcher = pkPattern.matcher(ddl);
-    if (pkMatcher.find()) {
-        info.put("PK", pkMatcher.group(1).replace("`", ""));
+        Pattern pkPattern = Pattern.compile("PRIMARY KEY \\((.*?)\\)");
+        Matcher pkMatcher = pkPattern.matcher(ddl);
+        if (pkMatcher.find()) {
+            info.put("PK", pkMatcher.group(1).replace("`", ""));
+        }
+
+        ArrayList<String[]> fks = new ArrayList<>();
+        Pattern fkPattern = Pattern.compile("FOREIGN KEY \\((.*?)\\) REFERENCES `(.*?)` \\((.*?)\\)");
+        Matcher fkMatcher = fkPattern.matcher(ddl);
+        while (fkMatcher.find()) {
+            fks.add(new String[]{
+                fkMatcher.group(1).replace("`", ""),
+                fkMatcher.group(2),
+                fkMatcher.group(3).replace("`", "")
+            });
+        }
+        info.put("FKs", fks);
+
+        return info;
+    }
+    
+    //conexion a postgres
+    public Connection conectarPostgres(String host, int port, String db, String user, String pass) throws Exception {
+        Class.forName("org.postgresql.Driver");
+        String urlAdmin = "jdbc:postgresql://" + host + ":" + port + "/postgres";
+        try (Connection adminConn = DriverManager.getConnection(urlAdmin, user, pass); Statement st = adminConn.createStatement()) {
+            ResultSet rs = st.executeQuery("SELECT 1 FROM pg_database WHERE datname = '" + db + "'");
+            if (!rs.next()) {
+                st.executeUpdate("CREATE DATABASE \"" + db + "\"");
+            }
+        }
+        String url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
+        return DriverManager.getConnection(url, user, pass);
+    }
+    
+    public Map<String, Map<String, String>> exportarDDL(Connection con) throws SQLException {
+        Map<String, Map<String, String>> objetos = new HashMap<>();
+        objetos.put("tables", new HashMap<>());
+        objetos.put("views", new HashMap<>());
+
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SHOW FULL TABLES WHERE Table_type IN ('BASE TABLE','VIEW')");
+        while (rs.next()) {
+            String nombre = rs.getString(1);
+            String tipo = rs.getString(2);
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery("SHOW CREATE " + (tipo.equals("VIEW") ? "VIEW " : "TABLE ") + nombre);
+            if (rs2.next()) {
+                String ddl = (tipo.equals("VIEW")) ? rs2.getString("Create View") : rs2.getString(2);
+                if (tipo.equals("VIEW")) {
+                    objetos.get("views").put(nombre, ddl);
+                } else {
+                    objetos.get("tables").put(nombre, ddl);
+                }
+            }
+        }
+        return objetos;
     }
 
-    ArrayList<String[]> fks = new ArrayList<>();
-    Pattern fkPattern = Pattern.compile("FOREIGN KEY \\((.*?)\\) REFERENCES `(.*?)` \\((.*?)\\)");
-    Matcher fkMatcher = fkPattern.matcher(ddl);
-    while (fkMatcher.find()) {
-        fks.add(new String[]{
-            fkMatcher.group(1).replace("`", ""), 
-            fkMatcher.group(2),                  
-            fkMatcher.group(3).replace("`", "")  
-        });
-    }
-    info.put("FKs", fks);
+    //ajustarlo a postgres
+    public Map<String, Object> separarDDL(String ddl, String nombreTabla) {
+        ArrayList<String> createStatements = new ArrayList<>();
+        ArrayList<String> fkConstraints = new ArrayList<>();
+        boolean tieneFK = false;
 
-    return info;
-}
+        String[] lines = ddl.split("\n");
+        StringBuilder createOnly = new StringBuilder();
+
+        for (String line : lines) {
+            String trimmed = line.trim();
+            //slatar los check por que tira error
+            if (trimmed.startsWith("CONSTRAINT") || trimmed.startsWith("FOREIGN KEY") || trimmed.contains("CHECK")) {
+                continue;
+            } else if (trimmed.startsWith("KEY") || trimmed.startsWith("UNIQUE KEY")) {
+                continue;
+            } else {
+                createOnly.append(line).append("\n");
+            }
+        }
+
+        String limpiarDDL = createOnly.toString()
+                .replace("`", "")
+                .replace("AUTO_INCREMENT", "SERIAL")
+                .replaceAll("(?i)ENGINE=\\w+", "")
+                .replaceAll("(?i)DEFAULT CHARSET=\\w+", "")
+                .replaceAll("(?i)COLLATE\\s+\\w+", "")
+                .replace("tinyint(1)", "boolean")
+                .replace("datetime", "TIMESTAMP")
+                .replaceAll("(?i)COLLATE\\s*=\\s*[^\\s]+", "")
+                .replaceAll("(?i)COLLATE\\s+[^\\s,]+", "")
+                .replace("\"", "")
+                .replaceAll("_utf8mb4", "")
+                .replaceAll(",\\s*\\)", "\n)");
+
+        limpiarDDL = limpiarDDL.trim();
+        if (!limpiarDDL.endsWith(";")) {
+            limpiarDDL = limpiarDDL + ";";
+        }
+        limpiarDDL = limpiarDDL
+                .replaceAll("_utf8mb4'", "'")
+                .replaceAll("'\\s*'", "','");
+        createStatements.add(limpiarDDL);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("create", createStatements);
+        result.put("fks", fkConstraints);
+        result.put("tieneFK", tieneFK);
+        result.put("tabla", nombreTabla);
+        return result;
+    }
+
+    public void sincronizarDatos(Connection mysqlConn, Connection postgresConn) throws SQLException {
+        Statement stTablas = mysqlConn.createStatement();
+        ResultSet rs = stTablas.executeQuery("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'");
+        while (rs.next()) {
+            String tabla = rs.getString(1);
+            Statement stData = mysqlConn.createStatement();
+            ResultSet data = stData.executeQuery("SELECT * FROM " + tabla);
+            ResultSetMetaData meta = data.getMetaData();
+
+            String insert = "INSERT INTO " + tabla + " VALUES ("
+                    + "?,".repeat(meta.getColumnCount()).replaceAll(",$", "") + ")";
+            PreparedStatement ps = postgresConn.prepareStatement(insert);
+
+            while (data.next()) {
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    ps.setObject(i, data.getObject(i));
+                }
+                ps.addBatch();
+            }
+            ps.executeBatch();
+
+            data.close();
+            stData.close();
+            ps.close();
+        }
+
+        rs.close();
+        stTablas.close();
+    }
+
 }

@@ -132,6 +132,21 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton15 = new javax.swing.JButton();
+        jdsincronizar = new javax.swing.JDialog();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        tfHost2 = new java.awt.TextField();
+        tfPort2 = new java.awt.TextField();
+        tfBD2 = new java.awt.TextField();
+        tfUser2 = new java.awt.TextField();
+        jButton18 = new javax.swing.JButton();
+        tfPassword2 = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -309,13 +324,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
-            .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, segundaPantallaLayout.createSequentialGroup()
-                    .addContainerGap(657, Short.MAX_VALUE)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)))
         );
         segundaPantallaLayout.setVerticalGroup(
             segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,23 +337,20 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(segundaPantallaLayout.createSequentialGroup()
-                        .addGap(168, 168, 168)
+                        .addGap(167, 167, 167)
                         .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(segundaPantallaLayout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
                                 .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(36, 36, 36)
                                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(segundaPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(segundaPantallaLayout.createSequentialGroup()
-                    .addGap(263, 263, 263)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(282, Short.MAX_VALUE)))
         );
 
         jPanel7.setBackground(new java.awt.Color(204, 204, 204));
@@ -826,9 +834,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(sentenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addGroup(sentenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jbEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addComponent(jbBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jbEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(jbBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         sentenciasLayout.setVerticalGroup(
@@ -920,6 +927,172 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23))))
+        );
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(0, 0, 0)));
+
+        jPanel19.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("SINCRONIZAR A POSTGRE SQL");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+        );
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel23.setText("CONTRASEÑA:");
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel24.setText("HOST:");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel25.setText("PUERTO:");
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel26.setText("BASE DE DATOS:");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel27.setText("USUARIO:");
+
+        tfHost2.setBackground(new java.awt.Color(204, 204, 204));
+        tfHost2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfHost2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        tfHost2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfHost2ActionPerformed(evt);
+            }
+        });
+
+        tfPort2.setBackground(new java.awt.Color(204, 204, 204));
+        tfPort2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfPort2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        tfPort2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfPort2ActionPerformed(evt);
+            }
+        });
+
+        tfBD2.setBackground(new java.awt.Color(204, 204, 204));
+        tfBD2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfBD2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        tfBD2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfBD2ActionPerformed(evt);
+            }
+        });
+
+        tfUser2.setBackground(new java.awt.Color(204, 204, 204));
+        tfUser2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfUser2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        tfUser2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUser2ActionPerformed(evt);
+            }
+        });
+
+        jButton18.setBackground(new java.awt.Color(0, 0, 0));
+        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jButton18.setForeground(new java.awt.Color(255, 255, 255));
+        jButton18.setText("SINCRONIZAR");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        tfPassword2.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(55, 55, 55)
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfHost2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPort2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfUser2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfBD2, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(tfPassword2)))))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfHost2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPort2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfBD2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfUser2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+        );
+
+        javax.swing.GroupLayout jdsincronizarLayout = new javax.swing.GroupLayout(jdsincronizar.getContentPane());
+        jdsincronizar.getContentPane().setLayout(jdsincronizarLayout);
+        jdsincronizarLayout.setHorizontalGroup(
+            jdsincronizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdsincronizarLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        jdsincronizarLayout.setVerticalGroup(
+            jdsincronizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdsincronizarLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1203,10 +1376,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        crearPantalla.pack();
-        crearPantalla.setLocationRelativeTo(this);
-        crearPantalla.setModal(true);
-        crearPantalla.setVisible(true);
+        tfHost2.setText("localhost");
+        tfUser2.setText("postgres");
+        tfPassword2.setText("password");
+        tfBD2.setText("BD_PRUEBA");
+        tfPort2.setText("5432");
+        jdsincronizar.pack();
+        jdsincronizar.setLocationRelativeTo(this);
+        jdsincronizar.setModal(true);
+        jdsincronizar.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1252,6 +1430,10 @@ public class Principal extends javax.swing.JFrame {
         tf_nameVista.setText("");
         DefaultTableModel model = (DefaultTableModel) jtCrearTabla.getModel();
         model.setRowCount(0);
+        model.addRow(new Object[]{null, null, null});
+        model.addRow(new Object[]{null, null, null});
+        model.addRow(new Object[]{null, null, null});
+        model.addRow(new Object[]{null, null, null});
         crearPantalla.setVisible(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -1368,7 +1550,7 @@ public class Principal extends javax.swing.JFrame {
     private void jbEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEjecutarActionPerformed
         // TODO add your handling code here:
         String consulta=taConsultaSentencia.getText();
-        manager.ejecutarSQL_SELECT(conecction, consulta, jtConsultas);
+        manager.ejecutarSQL(conecction, consulta, jtConsultas);
     }//GEN-LAST:event_jbEjecutarActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -1438,7 +1620,79 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
+        crearPantalla.pack();
+        crearPantalla.setLocationRelativeTo(this);
+        crearPantalla.setModal(true);
+        crearPantalla.setVisible(true);
     }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void tfHost2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfHost2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfHost2ActionPerformed
+
+    private void tfPort2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPort2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfPort2ActionPerformed
+
+    private void tfBD2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBD2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfBD2ActionPerformed
+
+    private void tfUser2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUser2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUser2ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+
+        String host = tfHost2.getText();
+        String db = tfBD2.getText();
+        String user = tfUser2.getText();
+        String pass = tfPassword2.getText();
+        try {
+            Connection pgConn = manager.conectarPostgres(host, 5432, db, user, pass);
+            Statement st = pgConn.createStatement();
+            Map<String, Map<String, String>> ddls = manager.exportarDDL(conecction);
+            ArrayList<Map<String, Object>> fkPendientes = new ArrayList<>();
+
+            for (Map.Entry<String, String> entry : ddls.get("tables").entrySet()) {
+                String tabla = entry.getKey();
+                String ddl = entry.getValue();
+                Map<String, Object> ddlSeparado = manager.separarDDL(ddl, tabla);
+                for (String stmt : (ArrayList<String>) ddlSeparado.get("create")) {
+                    System.out.println("CREANDO TABLA " + stmt);
+                    st.execute(stmt);
+                }
+                if ((boolean) ddlSeparado.get("tieneFK")) {
+                    fkPendientes.add(ddlSeparado);
+                }
+            }
+            for (Map<String, Object> fkData : fkPendientes) {
+                String tabla = (String) fkData.get("tabla");
+                for (String fk : (ArrayList<String>) fkData.get("fks")) {
+                    String alter = "ALTER TABLE " + tabla + " ADD " + fk + ";";
+                    //System.out.println("AGREGANDO FK " + alter);
+                    st.execute(alter);
+                }
+            }
+            for (Map.Entry<String, String> entry : ddls.get("views").entrySet()) {
+                String ddlView = entry.getValue()
+                        .replace("`", "")
+                        .replaceAll("(?i)ALGORITHM=\\w+", "")
+                        .replaceAll("(?i)DEFINER=\\S+", "")
+                        .replaceAll("(?i)SQL SECURITY DEFINER", "");
+                //System.out.println("CREANDO VIEW" + ddlView);
+                st.execute(ddlView);
+            }
+            //paso final
+            manager.sincronizarDatos(conecction, pgConn);
+            JOptionPane.showMessageDialog(null, "Sincronizacion completada a "+db);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en sincronizacion: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButton18ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1598,7 +1852,7 @@ public class Principal extends javax.swing.JFrame {
                     label.append("\nFK: ").append(fk[0]);
                 }
             }
-
+            //cada tabla
             Object nodo = graph.insertVertex(parent, null, label.toString(), x, y, 160, 90);
             nodos.put(tabla, nodo);
             
@@ -1660,6 +1914,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1676,6 +1931,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1689,6 +1950,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1713,6 +1976,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jbVER;
     private javax.swing.JButton jbVerDDL;
     private javax.swing.JButton jbVerDDL1;
+    private javax.swing.JDialog jdsincronizar;
     private javax.swing.JList<String> jl_objetos;
     private javax.swing.JList<String> jl_ver;
     private javax.swing.JTable jtConsultas;
@@ -1726,10 +1990,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextArea ta_sqlVista;
     private javax.swing.JTextArea ta_vista;
     private java.awt.TextField tfBD;
+    private java.awt.TextField tfBD2;
     private java.awt.TextField tfHost;
+    private java.awt.TextField tfHost2;
     private javax.swing.JPasswordField tfPassword;
+    private javax.swing.JPasswordField tfPassword2;
     private java.awt.TextField tfPort;
+    private java.awt.TextField tfPort2;
     private java.awt.TextField tfUser;
+    private java.awt.TextField tfUser2;
     private javax.swing.JTextField tf_nameTable;
     private javax.swing.JTextField tf_nameVista;
     private javax.swing.JDialog verTablasVistas;
