@@ -956,7 +956,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel23.setText("CONTRASEÑA:");
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel24.setText("HOST:");
+        jLabel24.setText("SERVIDOR:");
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel25.setText("PUERTO:");
@@ -1126,7 +1126,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("CONTRASEÑA:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("HOST:");
+        jLabel3.setText("SERVIDOR:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("PUERTO:");

@@ -595,7 +595,6 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
                 ps.addBatch();
             }
             ps.executeBatch();
-
             data.close();
             stData.close();
             ps.close();
