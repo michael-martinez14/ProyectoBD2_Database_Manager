@@ -584,8 +584,7 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
             ResultSet data = stData.executeQuery("SELECT * FROM " + tabla);
             ResultSetMetaData meta = data.getMetaData();
 
-            String insert = "INSERT INTO " + tabla + " VALUES ("
-                    + "?,".repeat(meta.getColumnCount()).replaceAll(",$", "") + ")";
+            String insert = "INSERT INTO " + tabla + " VALUES ("+ "?,".repeat(meta.getColumnCount()).replaceAll(",$", "") + ")";
             PreparedStatement ps = postgresConn.prepareStatement(insert);
 
             while (data.next()) {
