@@ -575,33 +575,33 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
         return result;
     }
 
-    public void sincronizarDatos(Connection mysqlConn, Connection postgresConn) throws SQLException {
-        Statement stTablas = mysqlConn.createStatement();
-        ResultSet rs = stTablas.executeQuery("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'");
-        while (rs.next()) {
-            String tabla = rs.getString(1);
-            Statement stData = mysqlConn.createStatement();
-            ResultSet data = stData.executeQuery("SELECT * FROM " + tabla);
-            ResultSetMetaData meta = data.getMetaData();
-
-            String insert = "INSERT INTO " + tabla + " VALUES ("
-                    + "?,".repeat(meta.getColumnCount()).replaceAll(",$", "") + ")";
-            PreparedStatement ps = postgresConn.prepareStatement(insert);
-
-            while (data.next()) {
-                for (int i = 1; i <= meta.getColumnCount(); i++) {
-                    ps.setObject(i, data.getObject(i));
-                }
-                ps.addBatch();
-            }
-            ps.executeBatch();
-            data.close();
-            stData.close();
-            ps.close();
-        }
-
-        rs.close();
-        stTablas.close();
-    }
+//    public void sincronizarDatos(Connection mysqlConn, Connection postgresConn) throws SQLException {
+//        Statement stTablas = mysqlConn.createStatement();
+//        ResultSet rs = stTablas.executeQuery("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'");
+//        while (rs.next()) {
+//            String tabla = rs.getString(1);
+//            Statement stData = mysqlConn.createStatement();
+//            ResultSet data = stData.executeQuery("SELECT * FROM " + tabla);
+//            ResultSetMetaData meta = data.getMetaData();
+//
+//            String insert = "INSERT INTO " + tabla + " VALUES ("
+//                    + "?,".repeat(meta.getColumnCount()).replaceAll(",$", "") + ")";
+//            PreparedStatement ps = postgresConn.prepareStatement(insert);
+//
+//            while (data.next()) {
+//                for (int i = 1; i <= meta.getColumnCount(); i++) {
+//                    ps.setObject(i, data.getObject(i));
+//                }
+//                ps.addBatch();
+//            }
+//            ps.executeBatch();
+//            data.close();
+//            stData.close();
+//            ps.close();
+//        }
+//
+//        rs.close();
+//        stTablas.close();
+//    }
 
 }
