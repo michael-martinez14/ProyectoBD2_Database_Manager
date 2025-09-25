@@ -524,56 +524,56 @@ public String getDDLUsuario(Connection conexion, String nombreUsuario) {
     }
 
     //ajustarlo a postgres
-    public Map<String, Object> separarDDL(String ddl, String nombreTabla) {
-        ArrayList<String> createStatements = new ArrayList<>();
-        ArrayList<String> fkConstraints = new ArrayList<>();
-        boolean tieneFK = false;
-
-        String[] lines = ddl.split("\n");
-        StringBuilder createOnly = new StringBuilder();
-
-        for (String line : lines) {
-            String trimmed = line.trim();
-            //slatar los check por que tira error
-            if (trimmed.startsWith("CONSTRAINT") || trimmed.startsWith("FOREIGN KEY") || trimmed.contains("CHECK")) {
-                continue;
-            } else if (trimmed.startsWith("KEY") || trimmed.startsWith("UNIQUE KEY")) {
-                continue;
-            } else {
-                createOnly.append(line).append("\n");
-            }
-        }
-
-        String limpiarDDL = createOnly.toString()
-                .replace("`", "")
-                .replace("AUTO_INCREMENT", "SERIAL")
-                .replaceAll("(?i)ENGINE=\\w+", "")
-                .replaceAll("(?i)DEFAULT CHARSET=\\w+", "")
-                .replaceAll("(?i)COLLATE\\s+\\w+", "")
-                .replace("tinyint(1)", "boolean")
-                .replace("datetime", "TIMESTAMP")
-                .replaceAll("(?i)COLLATE\\s*=\\s*[^\\s]+", "")
-                .replaceAll("(?i)COLLATE\\s+[^\\s,]+", "")
-                .replace("\"", "")
-                .replaceAll("_utf8mb4", "")
-                .replaceAll(",\\s*\\)", "\n)");
-
-        limpiarDDL = limpiarDDL.trim();
-        if (!limpiarDDL.endsWith(";")) {
-            limpiarDDL = limpiarDDL + ";";
-        }
-        limpiarDDL = limpiarDDL
-                .replaceAll("_utf8mb4'", "'")
-                .replaceAll("'\\s*'", "','");
-        createStatements.add(limpiarDDL);
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("create", createStatements);
-        result.put("fks", fkConstraints);
-        result.put("tieneFK", tieneFK);
-        result.put("tabla", nombreTabla);
-        return result;
-    }
+//    public Map<String, Object> separarDDL(String ddl, String nombreTabla) {
+//        ArrayList<String> createStatements = new ArrayList<>();
+//        ArrayList<String> fkConstraints = new ArrayList<>();
+//        boolean tieneFK = false;
+//
+//        String[] lines = ddl.split("\n");
+//        StringBuilder createOnly = new StringBuilder();
+//
+//        for (String line : lines) {
+//            String trimmed = line.trim();
+//            //slatar los check por que tira error
+//            if (trimmed.startsWith("CONSTRAINT") || trimmed.startsWith("FOREIGN KEY") || trimmed.contains("CHECK")) {
+//                continue;
+//            } else if (trimmed.startsWith("KEY") || trimmed.startsWith("UNIQUE KEY")) {
+//                continue;
+//            } else {
+//                createOnly.append(line).append("\n");
+//            }
+//        }
+//
+//        String limpiarDDL = createOnly.toString()
+//                .replace("`", "")
+//                .replace("AUTO_INCREMENT", "SERIAL")
+//                .replaceAll("(?i)ENGINE=\\w+", "")
+//                .replaceAll("(?i)DEFAULT CHARSET=\\w+", "")
+//                .replaceAll("(?i)COLLATE\\s+\\w+", "")
+//                .replace("tinyint(1)", "boolean")
+//                .replace("datetime", "TIMESTAMP")
+//                .replaceAll("(?i)COLLATE\\s*=\\s*[^\\s]+", "")
+//                .replaceAll("(?i)COLLATE\\s+[^\\s,]+", "")
+//                .replace("\"", "")
+//                .replaceAll("_utf8mb4", "")
+//                .replaceAll(",\\s*\\)", "\n)");
+//
+//        limpiarDDL = limpiarDDL.trim();
+//        if (!limpiarDDL.endsWith(";")) {
+//            limpiarDDL = limpiarDDL + ";";
+//        }
+//        limpiarDDL = limpiarDDL
+//                .replaceAll("_utf8mb4'", "'")
+//                .replaceAll("'\\s*'", "','");
+//        createStatements.add(limpiarDDL);
+//
+//        Map<String, Object> result = new HashMap<>();
+//        result.put("create", createStatements);
+//        result.put("fks", fkConstraints);
+//        result.put("tieneFK", tieneFK);
+//        result.put("tabla", nombreTabla);
+//        return result;
+//    }
 
 //    public void sincronizarDatos(Connection mysqlConn, Connection postgresConn) throws SQLException {
 //        Statement stTablas = mysqlConn.createStatement();
