@@ -1658,7 +1658,7 @@ public class Principal extends javax.swing.JFrame {
             for (Map.Entry<String, String> entry : ddls.get("tables").entrySet()) {
                 String tabla = entry.getKey();
                 String ddl = entry.getValue();
-                Map<String, Object> ddlSeparado = manager.separarDDL(ddl, tabla);
+                Map<String, Object> ddlSeparado = manager.convertirDDL(ddl, tabla);
                 for (String stmt : (ArrayList<String>) ddlSeparado.get("create")) {
                     System.out.println("CREANDO TABLA " + stmt);
                     st.execute(stmt);
